@@ -1,0 +1,13 @@
+.sidenavContainer{
+    display: flex;
+    flex-direction: column;
+    height: 85vh;
+    justify-content: space-between;
+    margin-top: 39px;
+  }
+
+  .sideBar{
+    background-color: #F6F7F9;
+    padding: 10px;
+     }
+    

@@ -1,0 +1,20 @@
+.projectInput{
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    border: 1px solid #cFD3d4;
+    border-radius: 8px;
+    margin-top: 47px;
+    margin-bottom: 36px;
+}
+
+.buttonContainer{
+    display: flex;
+    gap: 16px;
+    margin-top: 27px;
+    margin-bottom: 36px;
+}
+.projectInput:focus{
+    border: 1px solid #cFD3d4;
+
+}

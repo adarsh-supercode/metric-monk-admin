@@ -1,0 +1,153 @@
+.container {
+    background: var(--white);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 20px;
+    border: 1px solid var(--Grey, #DDE2E5);
+    background: #FFF;
+    padding: 37px 43px;
+
+}
+
+.formContainer form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    margin: 40px 0;
+}
+
+.inputDiv{
+    position: relative;
+    display: flex;
+    width: 375px;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 8px;
+    gap: 10px;
+}
+.formContainer form input {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    height: 52px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--Black-1, #CFD3D4);
+    gap: 10px;
+    align-self: stretch;
+}
+
+.container[data-type='signup'] .formContainer form input[data-name="password"]{
+    padding-left: 40px;
+}
+.formContainer .passwordIcon{
+    position: absolute;
+    top: 40px;
+    left: 10px;
+}
+.formContainer form input::placeholder {
+    color: var(--Black-2);
+    opacity: 1;
+}
+.formContainer form label {
+   color: var(--Black-4);
+}
+.formContainer button[type='submit'] {
+    display: flex;
+    width: 375px;
+    padding: 17px 16px;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+    gap: 10px;
+    border-radius: 12px;
+    background-color: var(--Primary);
+}
+.container[data-type='login'] .passwordIcon {
+    display: none;
+}
+.container[data-type='login']  .formContainer form input[type="password"] {
+    padding: 8px 16px;
+}
+.termsContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: fit-content;
+    margin: 20px 0;
+}
+.termsContainer input[type='checkbox']{
+    display: none;
+}
+.termsDiv{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    gap:20px;
+    cursor: pointer;
+}
+.termsContainer .checkMark{
+    display: flex;
+    width: 24px;
+    height: 24px;
+    padding: 1px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--Primary);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.termsContainer .checkMark.uncheckedFilled{
+    border: 1px solid red;
+}
+.termsContainer .checkMark .checkMarkSvgDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 0;
+    width: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--Primary);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.termsContainer .checkMark.checked .checkMarkSvgDiv{
+    height: 100%;
+    width: 100%;
+}
+
+.formContainer .error{
+    color: red;
+}
+.formContainer .success{
+    color: green;
+}
+.buttonContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+}
