@@ -45,6 +45,11 @@ button {
   border: none;
 }
 
+button:disabled{
+  opacity: 0.5;
+  cursor: auto;
+  pointer-events: none;
+}
 input:focus,
 input:focus-visible {
   outline: inherit;
@@ -155,6 +160,12 @@ input:focus-visible {
 .fw-600{
   font-weight: 600;
 }
+
+/* margin  */
+/* margin top  */
+.mt-50{
+  margin-top: 50px;
+}
 /* typography */
 
 /* @media (prefers-color-scheme: dark) {
@@ -169,6 +180,10 @@ input:focus-visible {
   height: 100vh; 
 }
 
+.mainContent{
+  height: 100vh; 
+  overflow-y: auto;
+}
 .container{
   padding: 94px 72px;
 }
@@ -193,4 +208,36 @@ input:focus-visible {
   gap: 10px;
   background-color: #000;
   border-radius: 12px;
+}
+
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
 }

@@ -22,7 +22,7 @@ export default function PrimaryForm({
   };
 
   if (!attributes) return <></>;
-
+console.log(attributes,'attributes')
   return (
     <div className={styles.container} data-type={type}>
       <div className={styles.formContainer}>

@@ -43,7 +43,7 @@ function Login() {
       setLoading(false);
     }
   };
-
+console.log('first')
   return (
     <PrimaryForm
       type="login"

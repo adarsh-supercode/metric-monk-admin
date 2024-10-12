@@ -3,7 +3,8 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { GlobalProvider } from "./context/GlobalContext";
 import { AuthProvider } from "./context/AuthContext";
-import Sidenav from "./layout/sidenav/Sidenav";
+import PrivateRender from "./PrivateRender";
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -17,15 +18,15 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
   return (
     <html lang="en" className={inter.variable}>
       <body>
         <GlobalProvider>
           <AuthProvider>
-            <div className="mainContainer">
-              <Sidenav />
-              <main className="mainContent">{children}</main>
-            </div>
+            <PrivateRender>
+              {children}
+            </PrivateRender>
           </AuthProvider>
         </GlobalProvider>
       </body>

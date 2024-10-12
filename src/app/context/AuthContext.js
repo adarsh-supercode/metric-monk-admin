@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
-          setAuth({ user: response.data?.user, loading: false }); // Set loading to false here
+          setAuth({ user: { ...response.data?.user, token }, loading: false }); // Set loading to false here
         })
         .catch((error) => {
           console.error("Error fetching user:", error);
@@ -41,7 +41,8 @@ export const AuthProvider = ({ children }) => {
 
       // Store token in localStorage
       localStorage.setItem("token", token);
-      setAuth({ user: user, loading: false });
+
+      setAuth({ user: { ...user, token }, loading: false });
       // router.push("/dashboard"); // Navigate to a protected route
     } catch (error) {
       console.error("Login failed:", error.response?.data || error);
@@ -60,9 +61,7 @@ export const AuthProvider = ({ children }) => {
       });
       const { token, user } = res.data;
 
-      // Store token in localStorage
-      localStorage.setItem("token", token);
-      setAuth({ user: user, loading: false });
+      setAuth({ user: { ...user, token }, loading: false });
       router.push("/");
     } catch (error) {
       console.error("Signup failed:", error.response?.data || error);
@@ -71,8 +70,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Logout function
-  const logout = () => {
-    console.log(" called here: ");
+  const logout = async () => {
     localStorage.removeItem("token");
     setAuth({ user: null, loading: false });
     router.push("/login");

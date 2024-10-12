@@ -1,83 +1,88 @@
 "use client";
-import React, { useState, useEffect, useContext } from "react";
-import styles from "./Projects.module.css";
+import React, { useEffect, useContext } from "react";
 import AuthContext from "../context/AuthContext";
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation'
+import Link from "next/link";
+import { GlobalContext } from "../context/GlobalContext";
+import * as styles from "./Projects.module.css"
 
 function Projects() {
   const router = useRouter();
-  const { user, loading } = useContext(AuthContext); // Access user and loading from AuthContext
-  const [projectName, setProjectName] = useState("");
-  const [dataSource, setDataSource] = useState("");
+  const { user, loading } = useContext(AuthContext);
+  const { globalData, fetchProjects, deleteProject } =
+    useContext(GlobalContext);
+
+  const { projectList, statusMessage } = globalData; // Get project list and status message
 
   useEffect(() => {
-    // Check if loading is false and user is null
     if (!loading) {
       if (!user) {
-        // If user is not logged in, redirect to the login page
-        router.push("/login"); // Uncomment to enable redirection to the login page
+        router.push("/login");
+      } else {
+        fetchProjects(user); // Fetch projects when user is authenticated
       }
     }
-  }, [user, loading, router]); // Dependency array includes user and loading
-
-  const handleCreateProject = () => {
-    if (projectName && dataSource) {
-      console.log(
-        `Creating project: ${projectName} with data source: ${dataSource}`
-      );
-      alert(`Project "${projectName}" created with data source: ${dataSource}`);
-      setProjectName("");
-      setDataSource("");
-    } else {
-      alert("Please fill in the project name and select a data source.");
-    }
-  };
+  }, [user, loading]);
 
   return (
     <div className="container">
-      <h3 className="heading-3">Create a New Project</h3>
-      <input
-        className={styles.projectInput}
-        type="text"
-        name="project"
-        id="project"
-        placeholder="Name of the project"
-        value={projectName}
-        onChange={(e) => setProjectName(e.target.value)}
-      />
-      <h4 className="heading-3">Connect Data Source</h4>
-      <div className={styles.buttonContainer}>
-        <button
-          className={`button-white ${
-            dataSource === "Google Analytics" ? "active" : ""
-          }`}
-          onClick={() => setDataSource("Google Analytics")}
-        >
-          Google Analytics
-        </button>
-        <button
-          className={`button-white ${dataSource === "Hotjar" ? "active" : ""}`}
-          onClick={() => setDataSource("Hotjar")}
-        >
-          Hotjar
-        </button>
-        <button
-          className={`button-white ${
-            dataSource === "Google Search Console" ? "active" : ""
-          }`}
-          onClick={() => setDataSource("Google Search Console")}
-        >
-          Google Search Console
-        </button>
-      </div>
-      <button
-        className="button-black"
-        onClick={handleCreateProject}
-        disabled={!projectName || !dataSource}
-      >
-        Create Project
-      </button>
+      <Link href={"/projects/create-projects"}>Create a New Project</Link>
+      <div className={`${styles.projectContainer} mt-50`}>
+
+      {projectList.length > 0 ? (
+        projectList.map((project, index) => {
+          const {
+            dataSource,
+            projectName,
+            accountName,
+            propertyName,
+            propertyID,
+          } = project;
+          return (
+            <div
+              key={index}
+              style={{
+                margin: "1rem",
+                border: "1px solid black",
+                padding: "1rem",
+                width: "fit-content",
+              }}
+            >
+              <Link
+                href={`/reports/${propertyID}/${localStorage.getItem("token")}`}
+                style={{
+                  width: "fit-content",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <p>
+                  <strong>Project Name:</strong> {projectName}
+                </p>
+                <p>
+                  <strong>Data Source:</strong> {dataSource}
+                </p>
+                <p>
+                  <strong>Account Name:</strong> {accountName}
+                </p>
+                <p>
+                  <strong>Property Name:</strong> {propertyName}
+                </p>
+              </Link>
+              <button
+                onClick={() => deleteProject(user, propertyID)}
+                style={{ marginTop: "1rem" }}
+              >
+                Disconnect
+              </button>
+            </div>
+          );
+        })
+      ) : (
+        <p>{statusMessage || "Loading projects..."}</p>
+      )}
     </div>
+      </div>
   );
 }
 
